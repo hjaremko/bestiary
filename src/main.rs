@@ -31,21 +31,18 @@ join beasts b on b.id = opinions.beast_id
 join courses c on c.id = opinions.course_id
         "#
     )
-    .map(|row| {
-        let opinion = Opinion {
-            beast: Beast {
-                first_name: row.first_name,
-                last_name: row.last_name,
-                titles: row.titles.unwrap(),
-            },
-            course: Course {
-                name: row.name,
-                semester: row.semester.to_string(),
-                year: row.year.to_string(),
-            },
-            opinion: row.opinion.unwrap(),
-        };
-        opinion
+    .map(|row| Opinion {
+        beast: Beast {
+            first_name: row.first_name,
+            last_name: row.last_name,
+            titles: row.titles.unwrap(),
+        },
+        course: Course {
+            name: row.name,
+            semester: row.semester.to_string(),
+            year: row.year.to_string(),
+        },
+        opinion: row.opinion.unwrap(),
     })
     .fetch_all(&pool)
     .await?;
@@ -53,5 +50,5 @@ join courses c on c.id = opinions.course_id
     let mut req = Response::new(tide::StatusCode::Ok);
     let body = Body::from_json(&rows)?;
     req.set_body(body);
-    Ok(req.into())
+    Ok(req)
 }
