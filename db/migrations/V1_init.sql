@@ -21,10 +21,16 @@ create table if not exists opinions
 );
 
 insert into beasts (id, first_name, last_name, titles)
-values (1, 'Marcin', 'Marchewka', 'dr');
+values (1, 'Marcin', 'Marchewka', 'dr'),
+       (2, 'Jan', 'Mrozek', 'dr hab.');
 
 insert into courses (id, name, semester, year)
-values (1, 'Programowanie 3', 1, 3);
+values (1, 'Programowanie 3', 1, 3),
+       (2, 'Analiza algorytmow', 1, 2),
+       (3, 'Algebra 1', 1, 1),
+       (4, 'Algebra 2', 2, 1);
 
 insert into opinions (id, beast_id, course_id, opinion)
-values (1, 1, 1, 'trudne kolokwia');
+values (1, 1, 1, 'trudne kolokwia'),
+       (2, 1, 1, 'spoko wyklad'),
+       (4, 2, 4, 'zloto');
