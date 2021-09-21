@@ -30,3 +30,5 @@ jobs:
         env:
           DATABASE_URL: 'sqlite:db/bestiary.db'
         run: cargo test --verbose
+      - name: Check formatting
+        run: cargo fmt --all -- --check
