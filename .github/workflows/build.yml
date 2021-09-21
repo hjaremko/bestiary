@@ -19,21 +19,14 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-debug-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-debug-
-      - name: Build project
+      - name: Check project
         env:
           DATABASE_URL: 'sqlite:db/bestiary.db'
         run: |
           touch db/bestiary.db
           sqlite3 db/bestiary.db ".read db/migrations/V1_init.sql"
-          cargo build --all --all-targets
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: baca-${{ runner.os }}
-          path: ./target/debug/bestiary*/
+          cargo clippy --package bestiary --all-features -- -D warnings
       - name: Run tests
-        run: cargo test --verbose
-      - name: Run linter
         env:
           DATABASE_URL: 'sqlite:db/bestiary.db'
-        run: cargo clippy --all-features -- -D warnings
+        run: cargo test --verbose
