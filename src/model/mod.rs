@@ -12,8 +12,8 @@ pub struct Beast {
 pub struct Course {
     pub id: i64,
     pub name: String,
-    pub semester: String,
-    pub year: String,
+    pub semester: i64,
+    pub year: i64,
 }
 
 #[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
